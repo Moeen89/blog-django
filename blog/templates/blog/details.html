@@ -2,7 +2,11 @@
 {% if post %}
     <h3>{{post.title}}</h3>
     <p> {{post.text}} </p>
-    writed by {{post.user_id.name}}
+    {% if post.image %}
+    <img src="{{ post.image.url }}" /> 
+    <br>
+    {% endif %}
+    writed by {{post.writer.name}}
     {% if form%}
         <br>
         <h4> edit: </h4>

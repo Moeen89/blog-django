@@ -51,9 +51,9 @@ class NewPostView(generic.edit.CreateView):
     template_name = "blog/post.html"
     model = Post
     success_url = reverse_lazy('blog:index')
-    fields = ["title","text"]
+    fields = ["title","text","image"]
     def form_valid(self, form):
-        form.instance.user_id =  get_object_or_404(Writer, pk=0)
+        form.instance.writer =  get_object_or_404(Writer, pk=0)
         form.instance.pub_date = timezone.now()
         return super(NewPostView, self).form_valid(form)
     
