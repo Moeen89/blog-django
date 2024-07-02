@@ -1,0 +1,25 @@
+
+{% if post %}
+    <h3>{{post.title}}</h3>
+    <p> {{post.text}} </p>
+    writed by {{post.user_id.name}}
+    {% if form%}
+        <br>
+        <h4> edit: </h4>
+    {% endif %}
+    <form action="edit/" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="update">
+    </form>
+    {% if form%}
+    <form action="{% url 'blog:delete' post.id%}" method="post">
+        {% csrf_token %}
+
+        <input type="submit" value="delete">
+    </form>
+    {% endif %}
+
+{% else %}
+    <p>No post!</p>
+{% endif %}
