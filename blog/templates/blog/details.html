@@ -6,7 +6,16 @@
         <br>
     {% endif %}
     writen by {{ post.writer.name }}
+    <br>
     <button onclick="window.location.href = '{% url 'blog:edit' post.id %}';">Edit</button>
+    <br>
+    <h4>Comments:</h4>
+    <button onclick="window.location.href = '{% url 'blog:comment' post.id %}';">Comment</button>
+    {% for comment in post.comment_set.all %}
+        <p>{{ comment }}</p>
+    {% endfor %}
+
+
 
 {% else %}
     <p>No post!</p>

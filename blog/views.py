@@ -2,7 +2,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils import timezone
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from .models import Post, Writer
+from .models import Post, Writer, Comment
 from . import forms
 from django.views import generic
 
@@ -61,3 +61,18 @@ class DeletePostView(generic.edit.DeleteView):
     template_name = "blog/delete_confirmation.html"
     model = Post
     success_url = reverse_lazy('blog:index')
+
+
+class CommentView(generic.edit.CreateView):
+    template_name = "blog/comment.html"
+    model = Comment
+    fields = ["text"]
+
+    def get_success_url(self):
+        return reverse_lazy('blog:details', kwargs={'pk': self.kwargs.get('pk')})
+
+    def form_valid(self, form):
+        form.instance.post = get_object_or_404(Post, pk=self.kwargs.get('pk'))
+        form.instance.writer = get_object_or_404(Writer, pk=0)
+        form.instance.pub_date = timezone.now()
+        return super(CommentView, self).form_valid(form)
