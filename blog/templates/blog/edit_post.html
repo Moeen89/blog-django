@@ -1,0 +1,24 @@
+{% if post %}
+    <h3>{{ post.title }}</h3>
+    <p> {{ post.text }} </p>
+    {% if post.image %}
+        <img src="{{ post.image.url }}"/>
+        <br>
+    {% endif %}
+    writen by {{ post.writer.name }}
+    {% if form %}
+        <br>
+        <h4> edit: </h4>
+    {% endif %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="update">
+    </form>
+    {% if form %}
+        <button onclick="window.location.href = '{% url 'blog:delete' post.id %}';">Delete</button>
+    {% endif %}
+
+{% else %}
+    <p>No post!</p>
+{% endif %}
