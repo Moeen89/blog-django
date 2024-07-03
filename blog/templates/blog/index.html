@@ -2,11 +2,12 @@
     <h2> search</h2>
 
     <form action="{% url 'blog:search' %}" method="get">
-        <input type="text" name="title" id="text" , placeholder="search title">
+        <input type="text" name="title" id="text"  placeholder="search title">
+        <label for="text"> meow </label>
         <input type="radio" id="asc" name="sort" value="newest">
-        <label for="html">newest</label>
+        <label for="asc">newest</label>
         <input type="radio" id="des" name="sort" value="oldest">
-        <label for="css">oldest</label>
+        <label for="des">oldest</label>
         <input type="submit" value="Submit">
     </form>
 
